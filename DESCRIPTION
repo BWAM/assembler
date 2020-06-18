@@ -18,3 +18,5 @@ Depends:
     usethis
 Suggests: 
     testthat
+URL: https://github.com/BWAM/assembler
+BugReports: https://github.com/BWAM/assembler/issues
