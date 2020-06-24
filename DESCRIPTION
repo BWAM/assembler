@@ -8,15 +8,16 @@ Authors@R:
            email = "first.last@example.com",
            comment = c(ORCID = "YOUR-ORCID-ID"))
 Description: What the package does (one paragraph).
-License: `use_mit_license()`, `use_gpl3_license()` or friends to
-    pick a license
+License: MIT + file LICENSE
+URL: https://github.com/BWAM/assembler
+BugReports: https://github.com/BWAM/assembler/issues
+Depends: 
+    usethis
+Suggests: 
+    testthat,
+    spelling
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.0
-Depends: 
-    usethis
-Suggests: 
-    testthat
-URL: https://github.com/BWAM/assembler
-BugReports: https://github.com/BWAM/assembler/issues
+Language: en-US
