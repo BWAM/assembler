@@ -1,7 +1,27 @@
-.name <- "delete"
-.path <- "C:\\Users\\zmsmith.000\\OneDrive - New York State Office of Information Technology Services\\project"
-.your_name <- "Zachary M. Smith"
-assemble_package <- function(.name, .path, .your_name, .github) {
+#' A Reproducible Method for Creating Packages
+#' The intent of the assemble_package function is to create a function that
+#' automatically creates new R packages with preconfigured settings to
+#' 1) speed up the process required to create an R package and
+#' 2) standardize the settings of R packages used in production.
+#' @param .name the name of the package as a quoted string.
+#' @param .path the file path where the package will be stored locally.
+#' @param .your_name the name of the package creator as a quoted string.
+#' @param .private_repo a logical statement signifying if the GitHub repository should be private.
+#' The default is FALSE, which indicates the GitHub repository is public.
+#' @return a preconfigured R-package.
+#' @export
+#' @examples
+#'\dontrun{
+#' assemble_package(.name = "validator",
+#' .path = file.path("C", "Users", "zmsmith.000",
+#'  "OneDrive - New York State Office of Information Technology Services",
+#'  "projects"),
+#' .your_name = "Zachary M. Smith",
+#' .private_repo = FALSE)
+#'}
+
+
+assemble_package <- function(.name, .path, .your_name, .private_repo = FALSE) {
   file_path.vec <- file.path(.path, .name)
 
   usethis::create_package(
@@ -32,7 +52,7 @@ assemble_package <- function(.name, .path, .your_name, .github) {
       # Add a description of the package.
       usethis::use_package_doc(),
       # Create a readMe template.
-      usethis::use_readme_rmd(open = FALSE),
+      usethis::use_readme_md(open = FALSE),
       # The package should always start as experimental and be
       # updated as progress is made.
       usethis::use_lifecycle_badge(stage = "Experimental"),
@@ -57,29 +77,40 @@ assemble_package <- function(.name, .path, .your_name, .github) {
       # Establish GitHub repository in BWAM.
       usethis::use_github(
         organisation = "BWAM",
-        private = TRUE,
-        protocol = git_protocol(),
+        private = .private_repo,
+        protocol = "https",
         credentials = NULL,
-        auth_token = github_token(),
+        auth_token = usethis::github_token(),
         host = NULL
       ),
+      # devtools::document(pkg = file_path.vec),
+      # devtools::build(pkg = file_path.vec),
       # Always create a website to house documentation.
       usethis::use_pkgdown(config_file = "_pkgdown.yml",
                            destdir = "docs"),
+      # # Run to build the website
+      # pkgdown::build_site(pkg = file_path.vec,
+      #                     install = FALSE),
       # I believe this add the URL to the pkgdown website.
       usethis::use_github_links(
-        auth_token = github_token(),
+        auth_token = usethis::github_token(),
         host = "https://api.github.com",
         overwrite = FALSE
       ),
       # Adds .DS_Store, .Rproj.user, and .Rhistory to your global .gitignore.
-      usethis::git_vaccinate(),
+      usethis::git_vaccinate()
+      # Setup infrastructure for github actions.
+      # usethis::use_github_actions(),
+      # Add a github actions badge to the readMe.
+      # usethis::use_github_actions_badge(name = "R-CMD-check"),
       # This action runs R CMD check via the rcmdcheck package on
       # the three major OSs (linux, macOS and Windows) on the
       # release version of R and R-devel.
-      usethis::use_github_action_check_standard(),
-      # Include a code of conduct.
-      usethis::use_code_of_conduct(path = NULL),
+      # usethis::use_github_action_check_standard(save_as = "R-CMD-check.yaml",
+      #                                           ignore = FALSE,
+      #                                           open = FALSE)#,
+      # # Include a code of conduct.
+      # usethis::use_code_of_conduct(path = NULL)
     )# End List
   ) # End with_project
 
