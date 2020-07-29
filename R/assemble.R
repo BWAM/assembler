@@ -13,7 +13,7 @@
 #' @examples
 #'\dontrun{
 #' assemble_package(.name = "validator",
-#' .path = file.path("C", "Users", "zmsmith.000",
+#' .path = file.path("C:", "Users", "zmsmith.000",
 #'  "OneDrive - New York State Office of Information Technology Services",
 #'  "projects"),
 #' .your_name = "Zachary M. Smith",
