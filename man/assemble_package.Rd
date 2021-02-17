@@ -10,14 +10,12 @@ automatically creates new R packages with preconfigured settings to
 \item standardize the settings of R packages used in production.
 }}
 \usage{
-assemble_package(.name, .path, .your_name, .private_repo = FALSE)
+assemble_package(.name, .path, .private_repo = FALSE)
 }
 \arguments{
 \item{.name}{the name of the package as a quoted string.}
 
 \item{.path}{the file path where the package will be stored locally.}
-
-\item{.your_name}{the name of the package creator as a quoted string.}
 
 \item{.private_repo}{a logical statement signifying if the GitHub repository should be private.
 The default is FALSE, which indicates the GitHub repository is public.}
@@ -37,7 +35,7 @@ automatically creates new R packages with preconfigured settings to
 \examples{
 \dontrun{
 assemble_package(.name = "validator",
-.path = file.path("C", "Users", "zmsmith.000",
+.path = file.path("C:", "Users", "zmsmith.000",
  "OneDrive - New York State Office of Information Technology Services",
  "projects"),
 .your_name = "Zachary M. Smith",

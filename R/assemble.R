@@ -5,7 +5,6 @@
 #' 2) standardize the settings of R packages used in production.
 #' @param .name the name of the package as a quoted string.
 #' @param .path the file path where the package will be stored locally.
-#' @param .your_name the name of the package creator as a quoted string.
 #' @param .private_repo a logical statement signifying if the GitHub repository should be private.
 #' The default is FALSE, which indicates the GitHub repository is public.
 #' @return a preconfigured R-package.
@@ -21,7 +20,7 @@
 #'}
 
 
-assemble_package <- function(.name, .path, .your_name, .private_repo = FALSE) {
+assemble_package <- function(.name, .path, .private_repo = FALSE) {
   file_path.vec <- file.path(.path, .name)
 
   usethis::create_package(
@@ -42,10 +41,11 @@ assemble_package <- function(.name, .path, .your_name, .private_repo = FALSE) {
   usethis::with_project(
     path = file_path.vec,
     code = list(
+      usethis::use_description_defaults(),
       # Puts fields in standard order and alphabetizes dependencies.
       usethis::use_tidy_description(),
       # Add the MIT license to the Description file.
-      usethis::use_mit_license(name = .your_name),
+      # usethis::use_mit_license(name = .your_name),
       # Include test coverage once I have a better understanding of
       # implementation.
       #use_coverage(type = c("codecov", "coveralls")),
@@ -80,7 +80,7 @@ assemble_package <- function(.name, .path, .your_name, .private_repo = FALSE) {
         private = .private_repo,
         protocol = "https",
         credentials = NULL,
-        auth_token = usethis::github_token(),
+        auth_token = gh::gh_token(),
         host = NULL
       ),
       # devtools::document(pkg = file_path.vec),
